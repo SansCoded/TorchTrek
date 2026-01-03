@@ -64,7 +64,6 @@ PyTorch provides the following functions to create tensors:-
 
 - torch.rand(): Returns a tensor with random values in the range [0, 1).
 
-- torch.tensor(): Converts a Python list or NumPy array into a PyTorch tensor.
 
 **Tensor Shapes and Reshaping -**
 
