@@ -85,5 +85,57 @@ PyTorch supports various data types for tensors, such as float32, int64, float64
 
 You can check the data type of a tensor using .dtype and convert the data type using .to().
 
+----------------------------------------------------------------------------------------------------------------------------------------------------
+**Autograd -**
 
-  
+**What is Autograd in PyTorch?**
+
+In simple terms, Autograd is PyTorch’s way of automatically calculating the gradients (or derivatives) for you during training.
+When we train a neural network, we want to update its weights (or parameters) to make it better at predictions. To do this, we need to know how the loss (error) changes when we tweak the weights. This is where gradients come in — they tell us how to adjust the weights.
+Autograd is like a helper that tracks all the operations you do to tensors (PyTorch's version of arrays or matrices) and then, when you ask it, automatically calculates the gradients needed to update those tensors. It helps in speeding up the training process because it removes the need for you to manually compute all those gradients!
+
+**Why Do We Need Autograd?**
+
+When we train neural networks, we usually do something called backpropagation. Backpropagation is a technique that uses the gradients to update the weights in the right direction. Without autograd, we would need to manually compute these gradients, which is not only super complicated but also time-consuming. Autograd automates this, so we can focus on building and improving the model instead of worrying about the math behind it.
+Example :-  Let’s go through a simple example to understand how autograd works in PyTorch:
+
+-------------------------------------------------------------------------
+import torch
+
+#Create a tensor with requires_grad=True so PyTorch knows to track operations on it
+
+**x = torch.tensor(2.0, requires_grad=True)**
+
+#Perform some operations
+
+**y = x ** 2 + 3 * x + 5  # y = x^2 + 3x + 5**
+
+#Now, we want to calculate the derivative of y with respect to x, so we call .backward()
+
+**y.backward(**)
+
+#The gradient (dy/dx) is stored in x.grad
+
+**print(x.grad)** # It will print the derivative of y = 2x + 3 at x = 2, which is 7
+
+-----------------------------------------------------------------------
+**Step-by-Step Explanation:**
+
+Creating a Tensor: x = torch.tensor(2.0, requires_grad=True) — We create a tensor with the value 2.0 and set requires_grad=True, meaning PyTorch should keep track of any operations done to this tensor.
+
+Performing Operations: y = x ** 2 + 3 * x + 5 — This is just a simple mathematical equation. PyTorch keeps track of the fact that y depends on x.
+
+Calling .backward(): This is the key part. When we call y.backward(), PyTorch automatically calculates how y changes with respect to x (this is the gradient). In our example, the derivative of y with respect to x (dy/dx) is 2x + 3, so at x = 2.0, the gradient will be 7.0.
+
+Accessing the Gradient: x.grad contains the gradient. In this case, it will print 7.0, because the derivative of x^2 + 3x + 5 at x = 2.0 is 7.0.
+
+
+**Why Is This Important?**
+
+
+- Efficiency: You don’t have to manually compute gradients.
+- Learning: The gradients are used in the optimization process to adjust the weights and minimize the loss function (making the model better).
+- Flexibility: You can perform complex operations and PyTorch will track all dependencies, giving you the correct gradients when needed.
+
+In short, autograd in PyTorch is like a powerful calculator that helps you update your model’s weights automatically during training by calculating how changes to those weights affect the error (loss).
+Does that make sense?
